@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>د. محمد عماد الدين | جراحة المسالك - تركيب الدعامات - الرسم الطبي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body dir="ltr">
+
+<canvas id="cosmos"></canvas>
+
+<nav id="nav">
+  <a href="#" class="nav-logo ar-only" data-page="home">د. <span>محمد عماد الدين</span></a>
+  <a href="#" class="nav-logo en-only" data-page="home">Dr. <span>Mohamed Emad</span></a>
+  <ul class="nav-links">
+    <li><a href="#" data-page="home" class="ar-only">الرئيسية</a><a href="#" data-page="home" class="en-only">Home</a></li>
+    <li><a href="#services" class="ar-only">الخبرات</a><a href="#services" class="en-only">Expertise</a></li>
+    <li><a href="#surgery-video" class="ar-only">جراحاتي</a><a href="#surgery-video" class="en-only">Surgery</a></li>
+    <li><a href="#staff" class="ar-only">الفريق</a><a href="#staff" class="en-only">Team</a></li>
+    <li><a href="#education" class="ar-only">المنصة التعليمية</a><a href="#education" class="en-only">Education</a></li>
+    <li><a href="#portfolio" class="ar-only">أعمالي</a><a href="#portfolio" class="en-only">Portfolio</a></li>
+    <li><a href="#booking" class="ar-only">احجز</a><a href="#booking" class="en-only">Book</a></li>
+  </ul>
+  <div style="display: flex; align-items: center; gap: 15px;">
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="ar">عربي</button>
+      <button class="lang-btn active" data-lang="en">EN</button>
+    </div>
+    <a href="#booking" class="nav-cta ar-only">احجز استشارة</a>
+    <a href="#booking" class="nav-cta en-only">Book Now</a>
+  </div>
+  <button class="menu-toggle" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></button>
+</nav>
+
+<div class="display-mode-toggle" id="displayModeToggle" title="تغيير طريقة العرض">
+  <i class="fas fa-th-large"></i>
+</div>
+
+<div id="home-page" class="page active-page">
+  <section id="hero">
+    <img class="hero-bg-image" src="ChatGPT Image May 14, 2026, 05_20_16 AM.png" alt="Medical Background">
+    <div class="hero-overlay"></div>
+    <div class="hero-bg-glow"></div>
+    <div class="hero-line-top ar-only">الرسام الرسمي لـ GURS · جامعة بني سويف</div>
+    <div class="hero-line-top en-only">Official GURS Illustrator · Beni-Suef University</div>
+    <h1 class="hero-name ar-only">د. <span class="hero-name-em">محمد عماد الدين</span></h1>
+    <h1 class="hero-name en-only">Dr. <span class="hero-name-em">Mohamed Emad</span></h1>
+    <p class="hero-title ar-only">مدرس المسالك البولية · جراح ترميم · رسام طبي</p>
+    <p class="hero-title en-only">Lecturer of Urology · Reconstructive Surgeon · Medical Illustrator</p>
+    <!-- Animated Expertise Ticker -->
+    <div class="hero-expertise-ticker" id="expertiseTicker">
+      <i class="fas fa-dna ticker-icon"></i>
+      <div class="ticker-slide-wrap" id="tickerWrap">
+        <div class="ticker-item" id="tickerActive"></div>
+        <div class="ticker-item" id="tickerNext" style="opacity:0;"></div>
+      </div>
+      <span class="ticker-dot"></span>
+    </div>
+    <div class="hero-divider"></div>
+    <p class="hero-desc ar-only">"أحوّل جراحات المسالك المعقدة إلى قصص بصرية واضحة — حيث تلتقي الجراحة بالفن"</p>
+    <p class="hero-desc en-only">"Transforming complex urology into clear visual stories — where surgery meets art."</p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary ar-only">احجز استشارة</a>
+      <a href="#booking" class="btn-primary en-only">Book Consultation</a>
+      <a href="#portfolio" class="btn-secondary ar-only">استعرض أعمالي</a>
+      <a href="#portfolio" class="btn-secondary en-only">View Portfolio</a>
+    </div>
+    <div class="hero-scroll-indicator"><span class="ar-only">مرر للأسفل</span><span class="en-only">Scroll</span><div class="scroll-line"></div></div>
+  </section>
+
+  <section id="about"><div class="container"><div class="about-grid"><div class="doctor-image-wrapper reveal"><img class="doctor-img" src="freepik_candid_image_photography_natural_textures_highly_r_13949 - Copy.jpg" alt="د. محمد عماد الدين"><div class="doctor-ring"></div><div class="about-badge"><span class="badge-num">12+</span><span class="badge-label ar-only">سنوات من التميز</span><span class="badge-label en-only">Years of Excellence</span></div></div><div class="about-content reveal"><span class="section-eyebrow ar-only">نبذة</span><span class="section-eyebrow en-only">About</span><h2 class="ar-only">جراح.<br><em style="color:#d4d4d4">فنان.</em><br>معلم.</h2><h2 class="en-only">Surgeon.<br><em style="color:#d4d4d4">Artist.</em><br>Educator.</h2><p class="ar-only"><strong>د. محمد عماد الدين</strong> أستاذ مساعد المسالك البولية بجامعة بني سويف، متخصص في جراحة مجرى البول والجهاز التناسلي المعقدة.</p><p class="en-only"><strong>Dr. Mohamed Emad</strong> is an Assistant Professor of Urology at Beni-Suef University, specializing in complex urethral and genital reconstruction.</p><p class="ar-only">بصفته <strong>الرسام الرسمي لجمعية GURS</strong>، يحول الإجراءات الجراحية المعقدة إلى رسوم توضيحية يدوية.</p><p class="en-only">As the <strong>Official Illustrator of GURS</strong>, he translates intricate surgical procedures into hand-drawn visual narratives.</p><div class="stent-highlight ar-only"><i class="fas fa-microscope"></i> <strong>خبير في مناظير المسالك البولية، وجراحة ترميم الإحليل للرجال والنساء، والناسور البولي</strong></div><div class="stent-highlight en-only"><i class="fas fa-microscope"></i> <strong>Expert in Urological Endoscopes, Male &amp; Female Urethroplasty, Urinary Fistulas</strong></div><div class="about-tags"><span class="tag ar-only">جراحة مجرى البول</span><span class="tag en-only">Urethral Reconstruction</span><span class="tag ar-only">الغرسات القضيبية</span><span class="tag en-only">Penile Prosthetics</span><span class="tag ar-only">تركيب الدعامات</span><span class="tag en-only">Stent Placement</span><span class="tag ar-only">الرسم الطبي</span><span class="tag en-only">Medical Illustration</span><span class="tag ar-only">الرسام الرسمي لـ GURS</span><span class="tag en-only">GURS Official Illustrator</span></div></div></div></div></section>
+
+  <section id="stats"><div class="container"><div class="stats-grid"><div class="stat-item reveal"><span class="stat-number"><span class="counter" data-target="450">0</span>+</span><span class="stat-label ar-only">حالة جراحية ترميمية</span><span class="stat-label en-only">Reconstructive Cases</span><p class="stat-desc ar-only">ترميم مجرى البول، إحليل تحتي، غرسات، DSD</p><p class="stat-desc en-only">Urethroplasty, hypospadias, prosthesis, DSD</p></div><div class="stat-item reveal"><span class="stat-number"><span class="counter" data-target="120">0</span>+</span><span class="stat-label ar-only">رسم توضيحي جراحي</span><span class="stat-label en-only">Medical Illustrations</span><p class="stat-desc ar-only">منشورة في مجلات ومؤتمرات عالمية</p><p class="stat-desc en-only">Published in journals & global conferences</p></div><div class="stat-item reveal"><span class="stat-number"><span class="counter" data-target="53">0</span>+</span><span class="stat-label ar-only">محاضرة وورشة عمل</span><span class="stat-label en-only">Lectures & Workshops</span><p class="stat-desc ar-only">تعليم جراحي دولي</p><p class="stat-desc en-only">International surgical education</p></div></div></div></section>
+
+  <section id="services"><div class="container"><div class="section-header reveal"><span class="section-eyebrow ar-only">الخبرات</span><span class="section-eyebrow en-only">Expertise</span><h2 class="section-title ar-only">مجالات <em>الإتقان</em></h2><h2 class="section-title en-only">Areas of <em>Mastery</em></h2></div><div class="services-grid reveal"><div class="service-card" data-service-id="0"><img class="service-bg-img" id="service-img-0" src="Gemini_Generated_Image_fpesblfpesblfpes.png" alt=""><div class="service-bg-overlay"></div><div class="service-card-content"><span class="service-num">01</span><h3 class="service-title ar-only">جراحات ترميم المسالك البولية</h3><h3 class="service-title en-only">Reconstructive Urology</h3><p class="service-desc ar-only"><span>— ترميمات معقدة لمجرى البول والأعضاء التناسلية.</span><br><span>— جراحات الإحليل السفلي (العيب الخِلقي).</span><br><span>— جراحة توسيع/إصلاح حوض الكلى.</span><br><span>— الناسور البولي المهبلي.</span></p><p class="service-desc en-only"><span>— Complex urethral and genital reconstruction.</span><br><span>— Hypospadias Surgery.</span><br><span>— Pyeloplasty Surgery.</span><br><span>— Vesico-vaginal fistulas.</span></p><div class="service-arrow"><i class="fas fa-arrow-left"></i></div></div></div><div class="service-card" data-service-id="1"><img class="service-bg-img" id="service-img-1" src="Gemini_Generated_Image_4uf8z44uf8z44uf8.png" alt=""><div class="service-bg-overlay"></div><div class="service-card-content"><span class="service-num">02</span><h3 class="service-title ar-only">دعامات وتركيبات المسالك البولية</h3><h3 class="service-title en-only">Prosthetic Urology</h3><p class="service-desc ar-only"><span>— الدعامة الذكرية القابلة للنفخ.</span><br><span>— الصمام البولي الصناعي.</span><br><span>— زراعة الخصية الصناعية.</span></p><p class="service-desc en-only"><span>— Inflatable penile prosthesis.</span><br><span>— Artificial urinary sphincters.</span><br><span>— Testicular prosthesis implant.</span></p><div class="service-arrow"><i class="fas fa-arrow-left"></i></div></div></div><div class="service-card" data-service-id="2"><img class="service-bg-img" id="service-img-2" src="Gemini_Generated_Image_9t99mg9t99mg9t99.png" alt=""><div class="service-bg-overlay"></div><div class="service-card-content"><span class="service-num">03</span><h3 class="service-title ar-only">مناظير المسالك البولية</h3><h3 class="service-title en-only">Urological Endoscopy</h3><p class="service-desc ar-only"><span>— استخراج حصوات الكلى عن طريق الجلد.</span><br><span>— منظار الحالب المرن.</span><br><span>— تفتيت الحصوات بالليزر.</span><br><span>— استئصال أورام المثانة بالمنظار.</span><br><span>— استئصال البروستاتا بالمنظار.</span></p><p class="service-desc en-only"><span>— Percutaneous nephrolithotomy (PNL).</span><br><span>— Flexible Ureteroscopy.</span><br><span>— Laser Lithotripsy.</span><br><span>— TURBT.</span><br><span>— TURP.</span></p><div class="service-arrow"><i class="fas fa-arrow-left"></i></div></div></div><div class="service-card" data-service-id="3"><img class="service-bg-img" id="service-img-3" src="Screenshot 2026-05-21 213250.png" alt=""><div class="service-bg-overlay"></div><div class="service-card-content"><span class="service-num">04</span><h3 class="service-title ar-only">الرسم الطبي والتعليم</h3><h3 class="service-title en-only">Medical Illustration & Education</h3><p class="service-desc ar-only">الرسام الرسمي لـ GURS. ورش عمل حية تحول الخطوات المعقدة إلى قصص بصرية.</p><p class="service-desc en-only">Official GURS illustrator. Live workshops transforming complex steps into visuals.</p><div class="service-arrow"><i class="fas fa-arrow-left"></i></div></div></div></div></div></section>
+
+  <!-- Surgery Video Section -->
+  <section id="surgery-video">
+    <div class="container">
+      <div class="video-section-inner reveal">
+
+        <!-- Video Player -->
+        <div class="video-wrapper">
+          <video id="surgeryVideoEl" poster="Screenshot 2026-05-21 201536.png" preload="metadata">
+            <!-- ضع رابط الفيديو هنا / Add your video source here -->
+            <source src="m5syyyy.mp4" type="video/mp4">
+          </video>
+          <div class="video-play-overlay" id="videoPlayOverlay" onclick="toggleSurgeryVideo()">
+            <div class="video-play-btn" id="videoPlayBtn">
+              <i class="fas fa-play" id="videoPlayIcon"></i>
+            </div>
+          </div>
+          <div class="video-badge">
+            <span class="video-badge-dot"></span>
+            <span class="ar-only">تسجيل حي من غرفة العمليات</span>
+            <span class="en-only">Live OR Recording</span>
+          </div>
+          <div class="video-glow"></div>
+        </div>
+
+        <!-- Video Content -->
+        <div class="video-content">
+          <span class="video-eyebrow ar-only">داخل غرفة العمليات</span>
+          <span class="video-eyebrow en-only">Inside the Operating Room</span>
+
+          <h2 class="video-title ar-only">دقة جراحية<br><em>لا تقبل المساومة</em></h2>
+          <h2 class="video-title en-only">Surgical Precision<br><em>Beyond Compare</em></h2>
+
+          <p class="video-desc ar-only">
+            شاهد الدكتور محمد عماد الدين أثناء أداء جراحات المسالك البولية التعيدية داخل غرفة العمليات. كل تفصيلة تعكس سنوات من التخصص والخبرة الدقيقة في ترميم مجرى البول وتركيب الدعامات والغرسات الذكرية المعقدة.
+          </p>
+          <p class="video-desc en-only">
+            Watch Dr. Mohamed Emad in action — performing complex reconstructive urology procedures inside the operating room. Every detail reflects years of specialized expertise in urethral reconstruction, stent placement, and advanced prosthetic urology.
+          </p>
+
+          <div class="video-features">
+            <div class="video-feature">
+              <div class="video-feature-icon"><i class="fas fa-cut"></i></div>
+              <div class="video-feature-text">
+                <h4 class="ar-only">تقنيات جراحية متقدمة</h4>
+                <h4 class="en-only">Advanced Surgical Techniques</h4>
+                <p class="ar-only">رأب الإحليل وإصلاح الناسور وجراحات الغرسات بأعلى دقة</p>
+                <p class="en-only">Urethroplasty, fistula repair, and prosthetic surgery with utmost precision</p>
+              </div>
+            </div>
+            <div class="video-feature">
+              <div class="video-feature-icon"><i class="fas fa-microscope"></i></div>
+              <div class="video-feature-text">
+                <h4 class="ar-only">تركيب الدعامات بالمنظار</h4>
+                <h4 class="en-only">Endoscopic Stent Placement</h4>
+                <p class="ar-only">تركيب دعامات الحالب والمجاري البولية المعقدة بأحدث التقنيات التنظيرية</p>
+                <p class="en-only">Complex ureteral and urinary stent placement using state-of-the-art endoscopic methods</p>
+              </div>
+            </div>
+            <div class="video-feature">
+              <div class="video-feature-icon"><i class="fas fa-hand-sparkles"></i></div>
+              <div class="video-feature-text">
+                <h4 class="ar-only">خبرة أكثر من ١٢ عاماً</h4>
+                <h4 class="en-only">Over 12 Years of Experience</h4>
+                <p class="ar-only">أكثر من ٤٥٠ حالة جراحية ناجحة في قسم المسالك البولية بجامعة بني سويف</p>
+                <p class="en-only">Over 450 successful surgical cases at Beni-Suef University Urology Department</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Staff Section — Full-width banner -->
+  <section id="staff">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-eyebrow ar-only">فريقنا الطبي</span>
+        <span class="section-eyebrow en-only">Our Medical Team</span>
+        <h2 class="section-title ar-only">كفاءات <em>موثوقة</em></h2>
+        <h2 class="section-title en-only">Trusted <em>Excellence</em></h2>
+      </div>
+      <div class="staff-banner reveal">
+        <!-- Staff Photo — Replace src with your team photo -->
+        <img
+          class="staff-banner-img"
+          id="staffBannerImg"
+          src="ChatGPT Image May 13, 2026, 07_18_58 AM.png"
+          alt="فريق د. محمد عماد الدين الطبي"
+        >
+
+        <!-- Upload hint
+        <div class="staff-upload-hint" onclick="triggerStaffImageUpload()" title="تغيير صورة الفريق">
+          <i class="fas fa-camera"></i>
+          <span class="ar-only">تغيير صورة الفريق</span>
+          <span class="en-only">Change Team Photo</span>
+        </div> -->
+
+        <!-- Overlay content -->
+        <div class="staff-banner-overlay">
+          <span class="staff-banner-label ar-only">وحدة المسالك البولية — جامعة بني سويف</span>
+          <span class="staff-banner-label en-only">Urology Unit — Beni-Suef University</span>
+
+          <h3 class="staff-banner-title ar-only">
+            فريق متخصص من أفضل كفاءات<br>المسالك البولية والجراحة الترميمية في مصر
+          </h3>
+          <h3 class="staff-banner-title en-only">
+            A Specialized Team of Egypt's Finest<br>Urology & Reconstructive Surgery Experts
+          </h3>
+
+          <p class="staff-banner-desc ar-only">
+            نعمل كفريق متكامل يجمع بين التخصص الدقيق والخبرة العملية. كل عضو في الفريق مُختار بعناية لضمان أعلى مستويات الرعاية الجراحية والطبية، من غرفة العمليات إلى متابعة ما بعد الجراحة. هدفنا الأول دائماً: سلامة المريض وجودة النتائج.
+          </p>
+          <p class="staff-banner-desc en-only">
+            We operate as an integrated team combining deep specialization and hands-on expertise. Every member is carefully selected to ensure the highest standards of surgical and medical care — from the operating room to post-operative follow-up. Our primary goal is always patient safety and outcome excellence.
+          </p>
+
+          <div class="staff-banner-members">
+            <div class="staff-member-chip">
+              <div class="chip-avatar">M</div>
+              <div class="chip-info">
+                <div class="chip-name ar-only">د. محمد عماد الدين</div>
+                <div class="chip-name en-only">Dr. Mohamed Emadeldin</div>
+                <div class="chip-role ar-only">استشاري ومدرس جراحة المسالك البولية</div>
+                <div class="chip-role en-only">Consultant & Lecturer of Urology</div>
+              </div>
+            </div>
+            <div class="staff-member-chip">
+              <div class="chip-avatar">O</div>
+              <div class="chip-info">
+                <div class="chip-name ar-only">د. أسامة خلف</div>
+                <div class="chip-name en-only">Dr. Osama Khalaf</div>
+                <div class="chip-role ar-only">أخصائي جراحة المسالك البولية</div>
+                <div class="chip-role en-only">Specialist in Urology</div>
+              </div>
+            </div>
+            <div class="staff-member-chip">
+              <div class="chip-avatar">N</div>
+              <div class="chip-info">
+                <div class="chip-name ar-only">د. ندى أشرف</div>
+                <div class="chip-name en-only">Dr. Nada Ashraf</div>
+                <div class="chip-role ar-only">أخصائية جراحة المسالك البولية</div>
+                <div class="chip-role en-only">Specialist in Urology</div>
+              </div>
+            </div>
+            <div class="staff-member-chip">
+              <div class="chip-avatar">H</div>
+              <div class="chip-info">
+                <div class="chip-name ar-only">د. حسين عادل</div>
+                <div class="chip-name en-only">Dr. Hussein Adel</div>
+                <div class="chip-role ar-only">طبيب تخدير</div>
+                <div class="chip-role en-only">Anesthesiologist</div>
+              </div>
+            </div>
+            <div class="staff-member-chip">
+              <div class="chip-avatar">E</div>
+              <div class="chip-info">
+                <div class="chip-name ar-only">أ. إبرام يعقوب</div>
+                <div class="chip-name en-only">Mr. Ebram Jacob</div>
+                <div class="chip-role ar-only">أخصائي تمريض ومنسق عام</div>
+                <div class="chip-role en-only">Nursing Specialist & General Coordinator</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════
+       EDUCATIONAL PLATFORM SECTION
+  ══════════════════════════════════════════════ -->
+  <section id="education">
+    <div class="container">
+
+      <!-- Section Header -->
+      <div class="section-header reveal">
+        <span class="section-eyebrow ar-only">المنصة التعليمية</span>
+        <span class="section-eyebrow en-only">Educational Platform</span>
+        <h2 class="section-title ar-only">تعلّم من <em>الخبراء</em></h2>
+        <h2 class="section-title en-only">Learn from the <em>Expert</em></h2>
+      </div>
+
+      <!-- Main Hero Grid -->
+      <div class="edu-hero reveal">
+
+        <!-- Left: Text Content -->
+        <div class="edu-hero-text">
+          <div class="edu-eyebrow-wrap">
+            <div class="edu-eyebrow-line"></div>
+            <div class="edu-badge">
+              <span class="edu-badge-dot"></span>
+              <span class="ar-only">محتوى حصري مجاني</span>
+              <span class="en-only">Free Exclusive Content</span>
+            </div>
+          </div>
+
+          <h2 class="edu-main-title ar-only">
+            المسالك البولية<br>
+            <em>علم وتطبيق</em>
+          </h2>
+          <h2 class="edu-main-title en-only">
+            Urology<br>
+            <em>Science & Practice</em>
+          </h2>
+
+          <p class="edu-desc ar-only">
+            قناة يوتيوب تعليمية متخصصة في المسالك البولية والجراحة الترميمية. شروحات مرئية دقيقة، حالات جراحية حقيقية، ورسوم توضيحية طبية احترافية — كل ذلك مجاناً.
+          </p>
+          <p class="edu-desc en-only">
+            A specialized YouTube channel dedicated to urology and reconstructive surgery. Precise visual explanations, real surgical cases, and professional medical illustrations — all completely free.
+          </p>
+
+          <div class="edu-features">
+            <div class="edu-feature-item">
+              <div class="edu-feature-icon"><i class="fas fa-play"></i></div>
+              <span class="ar-only">فيديوهات جراحية توضيحية مفصّلة</span>
+              <span class="en-only">Detailed surgical explainer videos</span>
+            </div>
+            <div class="edu-feature-item">
+              <div class="edu-feature-icon"><i class="fas fa-pen-nib"></i></div>
+              <span class="ar-only">رسوم طبية متحركة خطوة بخطوة</span>
+              <span class="en-only">Step-by-step animated medical drawings</span>
+            </div>
+            <div class="edu-feature-item">
+              <div class="edu-feature-icon"><i class="fas fa-graduation-cap"></i></div>
+              <span class="ar-only">محاضرات للأطباء والمقيمين والطلاب</span>
+              <span class="en-only">Lectures for doctors, residents & students</span>
+            </div>
+            <div class="edu-feature-item">
+              <div class="edu-feature-icon"><i class="fas fa-globe"></i></div>
+              <span class="ar-only">محتوى بالعربية والإنجليزية</span>
+              <span class="en-only">Content in Arabic & English</span>
+            </div>
+          </div>
+
+          <!-- YouTube Subscribe Button -->
+          <!-- ↓↓ ضع رابط قناة اليوتيوب هنا ↓↓ -->
+          <a href="https://www.youtube.com/@moemads1" target="_blank" class="edu-yt-btn" id="eduYtBtn">
+            <i class="fab fa-youtube"></i>
+            <div>
+              <span class="ar-only">اشترك في القناة</span>
+              <span class="en-only">Subscribe to Channel</span>
+              <span class="edu-yt-sub ar-only">youtube.com/@moemads1</span>
+              <span class="edu-yt-sub en-only">youtube.com/@moemads1</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Right: YouTube Channel Card -->
+        <div class="edu-yt-card">
+          <!-- Card Header -->
+          <div class="edu-yt-card-header">
+            <div class="edu-yt-logo">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="edu-yt-channel-info">
+              <div class="edu-yt-channel-name ar-only">د. محمد عماد الدين</div>
+              <div class="edu-yt-channel-name en-only">Dr. Mohamed Emad</div>
+              <div class="edu-yt-channel-handle">@moemads1</div>
+            </div>
+            <div class="edu-yt-verified">
+              <span class="ar-only">طبيب</span>
+              <span class="en-only">MD</span>
+            </div>
+          </div>
+
+          <!-- Video Thumbnails — Real YouTube -->
+          <div class="edu-videos-grid">
+
+            <!-- Video 1 -->
+            <a href="https://youtube.com/shorts/0Mb-vc8oUII" target="_blank" class="edu-video-thumb" style="display:block;text-decoration:none;">
+              <img src="https://i.ytimg.com/vi/0Mb-vc8oUII/maxresdefault.jpg"
+                   onerror="this.src='https://i.ytimg.com/vi/0Mb-vc8oUII/hqdefault.jpg'"
+                   style="width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:transform 0.4s ease,filter 0.3s ease;"/>
+              <div class="edu-yt-play-overlay">
+                <div class="edu-yt-play-icon"><i class="fab fa-youtube"></i></div>
+              </div>
+            </a>
+
+            <!-- Video 2 -->
+            <a href="https://youtube.com/shorts/XBMce2Qa6x8" target="_blank" class="edu-video-thumb" style="display:block;text-decoration:none;">
+              <img src="https://i.ytimg.com/vi/XBMce2Qa6x8/maxresdefault.jpg"
+                   onerror="this.src='https://i.ytimg.com/vi/XBMce2Qa6x8/hqdefault.jpg'"
+                   style="width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:transform 0.4s ease,filter 0.3s ease;"/>
+              <div class="edu-yt-play-overlay">
+                <div class="edu-yt-play-icon"><i class="fab fa-youtube"></i></div>
+              </div>
+            </a>
+
+            <!-- Video 3 -->
+            <a href="https://youtube.com/shorts/tpSsy8sXNoo" target="_blank" class="edu-video-thumb" style="display:block;text-decoration:none;">
+              <img src="https://i.ytimg.com/vi/tpSsy8sXNoo/maxresdefault.jpg"
+                   onerror="this.src='https://i.ytimg.com/vi/tpSsy8sXNoo/hqdefault.jpg'"
+                   style="width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:transform 0.4s ease,filter 0.3s ease;"/>
+              <div class="edu-yt-play-overlay">
+                <div class="edu-yt-play-icon"><i class="fab fa-youtube"></i></div>
+              </div>
+            </a>
+
+            <!-- Video 4 -->
+            <a href="https://youtube.com/shorts/UywL9aJackI" target="_blank" class="edu-video-thumb" style="display:block;text-decoration:none;">
+              <img src="https://i.ytimg.com/vi/UywL9aJackI/maxresdefault.jpg"
+                   onerror="this.src='https://i.ytimg.com/vi/UywL9aJackI/hqdefault.jpg'"
+                   style="width:100%;height:100%;object-fit:cover;display:block;opacity:1;transition:transform 0.4s ease,filter 0.3s ease;"/>
+              <div class="edu-yt-play-overlay">
+                <div class="edu-yt-play-icon"><i class="fab fa-youtube"></i></div>
+              </div>
+            </a>
+
+          </div>
+
+          <!-- Footer CTA -->
+          <div class="edu-yt-card-footer">
+            <!-- ↓↓ ضع رابط قناة اليوتيوب هنا ↓↓ -->
+            <a href="https://www.youtube.com/@moemads1" target="_blank" class="edu-visit-channel-btn">
+              <i class="fab fa-youtube"></i>
+              <span class="ar-only">زيارة القناة كاملة</span>
+              <span class="en-only">Visit Full Channel</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="edu-stats-row reveal">
+        <div class="edu-stat-card">
+          <div class="edu-stat-icon"><i class="fas fa-video"></i></div>
+          <div class="edu-stat-num">50+</div>
+          <div class="edu-stat-label ar-only">فيديو تعليمي</div>
+          <div class="edu-stat-label en-only">Educational Videos</div>
+        </div>
+        <div class="edu-stat-card">
+          <div class="edu-stat-icon"><i class="fas fa-users"></i></div>
+          <div class="edu-stat-num">10K+</div>
+          <div class="edu-stat-label ar-only">طبيب ومتخصص</div>
+          <div class="edu-stat-label en-only">Doctors & Specialists</div>
+        </div>
+        <div class="edu-stat-card">
+          <div class="edu-stat-icon"><i class="fas fa-globe-africa"></i></div>
+          <div class="edu-stat-num">30+</div>
+          <div class="edu-stat-label ar-only">دولة تتابع القناة</div>
+          <div class="edu-stat-label en-only">Countries Following</div>
+        </div>
+      </div>
+
+      <!-- Topics Grid -->
+      <div class="reveal">
+        <div class="edu-topics-header">
+          <span class="edu-topics-eyebrow ar-only">المحتوى المتاح</span>
+          <span class="edu-topics-eyebrow en-only">Available Content</span>
+          <h3 class="edu-topics-title ar-only">مواضيع <em>متنوعة</em></h3>
+          <h3 class="edu-topics-title en-only">Diverse <em>Topics</em></h3>
+        </div>
+        <div class="edu-topics-grid">
+          <div class="edu-topic-card">
+            <span class="edu-topic-icon"></span>
+            <div class="edu-topic-name ar-only">جراحة الغرسات<br>القضيبية</div>
+            <div class="edu-topic-name en-only">Penile Prosthesis<br>Surgery</div>
+          </div>
+          <div class="edu-topic-card">
+            <span class="edu-topic-icon"></span>
+            <div class="edu-topic-name ar-only">الرسم الطبي<br>الجراحي</div>
+            <div class="edu-topic-name en-only">Surgical Medical<br>Illustration</div>
+          </div>
+          <div class="edu-topic-card">
+            <span class="edu-topic-icon"></span>
+            <div class="edu-topic-name ar-only">ترميم مجرى<br>البول</div>
+            <div class="edu-topic-name en-only">Urethroplasty<br>Reconstruction</div>
+          </div>
+          <div class="edu-topic-card">
+            <span class="edu-topic-icon"></span>
+            <div class="edu-topic-name ar-only">منظار المسالك<br>البولية</div>
+            <div class="edu-topic-name en-only">Urological<br>Endoscopy</div>
+          </div>
+          <div class="edu-topic-card">
+            <span class="edu-topic-icon"></span>
+            <div class="edu-topic-name ar-only">الإحليل التحتي<br>عند الأطفال</div>
+            <div class="edu-topic-name en-only">Pediatric<br>Hypospadias</div>
+          </div>
+          <div class="edu-topic-card">
+            <span class="edu-topic-icon"></span>
+            <div class="edu-topic-name ar-only">محاضرات<br>للمقيمين</div>
+            <div class="edu-topic-name en-only">Residency<br>Lectures</div>
+          </div>
+          <div class="edu-topic-card">
+            <span class="edu-topic-icon"></span>
+            <div class="edu-topic-name ar-only">الناسور<br>البولي</div>
+            <div class="edu-topic-name en-only">Urinary<br>Fistulas</div>
+          </div>
+          <div class="edu-topic-card">
+            <span class="edu-topic-icon"></span>
+            <div class="edu-topic-name ar-only">ورش عمل<br>دولية</div>
+            <div class="edu-topic-name en-only">International<br>Workshops</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="portfolio"><div class="container"><div class="section-header reveal"><span class="section-eyebrow ar-only">أعمالي</span><span class="section-eyebrow en-only">Portfolio</span><h2 class="section-title ar-only">أعمال <em>مختارة</em></h2><h2 class="section-title en-only">Selected <em>Works</em></h2></div><div class="portfolio-filters reveal"><button class="filter-btn active" onclick="filterPortfolio('all', this)" data-cat="all">الكل / All</button><button class="filter-btn" onclick="filterPortfolio('illustration', this)" data-cat="illustration">رسوم / Illustrations</button><button class="filter-btn" onclick="filterPortfolio('case', this)" data-cat="case">حالات / Cases</button></div><div class="portfolio-grid reveal" id="portfolio-grid"><div class="portfolio-item" data-cat="illustration" onclick="openModal(0)"><div class="portfolio-item-inner"><div class="portfolio-item-num">01</div><div class="portfolio-item-label ar-only">وضع خزان المضخة القضيبية</div><div class="portfolio-item-label en-only">Ectopic Reservoir Placement</div></div><div class="portfolio-item-overlay"><div><span class="portfolio-item-cat ar-only">رسم طبي</span><span class="portfolio-item-cat en-only">Medical Illustration</span><div class="portfolio-item-title ar-only">وضع الخزان تحت العضلة المائلة</div><div class="portfolio-item-title en-only">Ectopic Reservoir Placement</div></div></div></div><div class="portfolio-item" data-cat="illustration" onclick="openModal(1)"><div class="portfolio-item-inner"><div class="portfolio-item-num">02</div><div class="portfolio-item-label ar-only">تخفيف الضغط القضيبي</div><div class="portfolio-item-label en-only">Penoscrotal Decompression</div></div><div class="portfolio-item-overlay"><div><span class="portfolio-item-cat ar-only">رسم طبي</span><span class="portfolio-item-cat en-only">Medical Illustration</span><div class="portfolio-item-title ar-only">علاج الانتصاب المؤلم</div><div class="portfolio-item-title en-only">Priapism Decompression</div></div></div></div><div class="portfolio-item" data-cat="illustration" onclick="openModal(2)"><div class="portfolio-item-inner"><div class="portfolio-item-num">03</div><div class="portfolio-item-label ar-only">خياطة تثبيت الحشفة المزدوجة</div><div class="portfolio-item-label en-only">Double Distal Anchoring Stitch</div></div><div class="portfolio-item-overlay"><div><span class="portfolio-item-cat ar-only">غلاف مجلة Sexual Medicine</span><span class="portfolio-item-cat en-only">Journal Cover — Sexual Medicine</span><div class="portfolio-item-title ar-only">تقنية منع انحراف الغرسات</div><div class="portfolio-item-title en-only">Anchoring Stitch Technique</div></div></div></div><div class="portfolio-item" data-cat="case" onclick="openModal(3)"><div class="portfolio-item-inner"><div class="portfolio-item-num">04</div><div class="portfolio-item-label ar-only">إغلاق الناسور بعد الإحليل التحتي</div><div class="portfolio-item-label en-only">Post Hypospadias Fistula Closure</div></div><div class="portfolio-item-overlay"><div><span class="portfolio-item-cat ar-only">حالة جراحية</span><span class="portfolio-item-cat en-only">Surgical Case</span><div class="portfolio-item-title ar-only">إغلاق الناسور الإحليلي</div><div class="portfolio-item-title en-only">Hypospadias Fistula Closure</div></div></div></div><div class="portfolio-item" data-cat="illustration" onclick="openModal(4)"><div class="portfolio-item-inner"><div class="portfolio-item-num">05</div><div class="portfolio-item-label ar-only">بضع الكهف ذو الثماني نقاط</div><div class="portfolio-item-label en-only">Eight-dot Extended Corporotomy</div></div><div class="portfolio-item-overlay"><div><span class="portfolio-item-cat ar-only">رسم طبي</span><span class="portfolio-item-cat en-only">Medical Illustration</span><div class="portfolio-item-title ar-only">لزراعة المضخة القضيبية المرنة</div><div class="portfolio-item-title en-only">Extended Corporotomy</div></div></div></div><div class="portfolio-item" data-cat="case" onclick="openModal(5)"><div class="portfolio-item-inner"><div class="portfolio-item-num">06</div><div class="portfolio-item-label ar-only">حالات ترميم مجرى البول الأنثوي</div><div class="portfolio-item-label en-only">Female Urethroplasty Series</div></div><div class="portfolio-item-overlay"><div><span class="portfolio-item-cat ar-only">سلسلة حالات جراحية</span><span class="portfolio-item-cat en-only">Surgical Case Series</span><div class="portfolio-item-title ar-only">ترميم مجرى البول عند السيدات</div><div class="portfolio-item-title en-only">Female Urethroplasty</div></div></div></div></div></div></section>
+
+  <section id="experience"><div class="container"><div class="section-header reveal"><span class="section-eyebrow ar-only">المسيرة المهنية</span><span class="section-eyebrow en-only">Journey</span><h2 class="section-title ar-only"><em>مسار</em> التميز</h2><h2 class="section-title en-only">The <em>Path</em> Forward</h2></div><div class="timeline reveal"><div class="timeline-line"></div><div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2015</span><div class="timeline-role ar-only">بكالوريوس الطب والجراحة</div><div class="timeline-role en-only">Medical Degree</div><div class="timeline-org">جامعة بني سويف / Beni-Suef University</div></div><div class="timeline-center"><div class="timeline-dot"></div></div><div class="timeline-empty"></div></div><div class="timeline-item"><div class="timeline-empty"></div><div class="timeline-center"><div class="timeline-dot"></div></div><div class="timeline-content"><span class="timeline-year">2017</span><div class="timeline-role ar-only">الإقامة في المسالك البولية</div><div class="timeline-role en-only">Urology Residency</div><div class="timeline-org">مستشفى جامعة بني سويف</div></div></div><div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2019</span><div class="timeline-role ar-only">مدرس مساعد المسالك البولية</div><div class="timeline-role en-only">Assistant Lecturer of Urology</div><div class="timeline-org">جامعة بني سويف</div></div><div class="timeline-center"><div class="timeline-dot"></div></div><div class="timeline-empty"></div></div><div class="timeline-item"><div class="timeline-empty"></div><div class="timeline-center"><div class="timeline-dot"></div></div><div class="timeline-content"><span class="timeline-year">2024</span><div class="timeline-role ar-only">غلاف مجلة Sexual Medicine</div><div class="timeline-role en-only">Journal of Sexual Medicine — Cover</div><div class="timeline-org">رسام الغلاف، المجلد 21، العدد 10</div></div></div><div class="timeline-item"><div class="timeline-content"><span class="timeline-year">2025</span><div class="timeline-role ar-only">مدرس المسالك البولية</div><div class="timeline-role en-only">Lecturer of Urology</div><div class="timeline-org">جامعة بني سويف</div></div><div class="timeline-center"><div class="timeline-dot"></div></div><div class="timeline-empty"></div></div><div class="timeline-item"><div class="timeline-empty"></div><div class="timeline-center"><div class="timeline-dot"></div></div><div class="timeline-content"><span class="timeline-year">2026</span><div class="timeline-role ar-only">الرسام الرسمي لـ GURS</div><div class="timeline-role en-only">GURS Official Illustrator</div><div class="timeline-org">الجمعية العالمية لجراحي المسالك والتناسلية</div></div></div></div></div></section>
+
+  <section id="testimonials"><div class="container"><div class="section-header reveal"><span class="section-eyebrow ar-only">التقدير</span><span class="section-eyebrow en-only">Recognition</span><h2 class="section-title ar-only">ماذا يقول عني <em>الخبراء</em></h2><h2 class="section-title en-only">What <em>Experts</em> Say</h2></div><div class="testimonial-slider"><div class="testimonial-track"><div class="testimonial-slides" id="testimonial-slides">
+
+<div class="testimonial-slide active">
+  <span class="quote-mark">"</span> 
+  <p class="testimonial-quote ar-only">استثنائية نادراً ما تجتمع في شخص واحد — جراح بارع ورسام طبي محترف. إن كنت تبحث عن مساعدة في رسوم الجراحة، فهو الخيار الأمثل بلا منازع.</p>
+  <p class="testimonial-quote en-only">An incredibly talented artist and urologist. If anyone wants help with surgical drawings, he's your guy!</p>
+  <div class="testimonial-author">
+    <div class="author-avatar">
+      <img src="Screenshot 2026-05-21 222946.png" alt="Faysal A. Yafi">
+      <span class="avatar-initials">FY</span>
+    </div>
+    <div class="author-info">
+      <div class="author-name">Faysal A. Yafi, MD</div>
+      <div class="author-role">UCI Urology</div>
+    </div>
+  </div>
+</div>
+
+<div class="testimonial-slide">
+  <span class="quote-mark">"</span>
+  <p class="testimonial-quote ar-only">حالات ترميمية بالغة التعقيد، وفي الوقت ذاته رسوم توضيحية مبهرة رُسمت باليد بدقة متناهية. عمل يستحق كل الإشادة والتقدير.</p>
+  <p class="testimonial-quote en-only">Complex reconstructive cases and beautiful hand-drawn illustrations. Excellent work!</p>
+  <div class="testimonial-author">
+    <div class="author-avatar">
+      <img src="Screenshot 2026-05-21 223901.png" alt="Stacy Tanaka">
+      <span class="avatar-initials">ST</span>
+    </div>
+    <div class="author-info">
+      <div class="author-name">Stacy Tanaka</div>
+      <div class="author-role">@AmerUrological</div>
+    </div>
+  </div>
+</div>
+
+<div class="testimonial-slide">
+  <span class="quote-mark">"</span>
+  <p class="testimonial-quote ar-only">رسوم توضيحية مذهلة تفوق كل التوقعات! هذا البحث سيُحدث نقلة نوعية في فهمنا لأساليب التعامل مع حالات الانتصاب المؤلم وعلاجها.</p>
+  <p class="testimonial-quote en-only">Fantastic illustrations! This article will greatly facilitate my understanding of priapism management.</p>
+  <div class="testimonial-author">
+    <div class="author-avatar">
+      <!-- ضع رابط صورة Zoladex_PCA هنا: <img src="YOUR_URL" alt="Zoladex_PCA"> -->
+      <span class="avatar-initials">ZP</span>
+    </div>
+    <div class="author-info">
+      <div class="author-name">International Medical Community</div>
+      <div class="author-role">Zoladex_PCA</div>
+    </div>
+  </div>
+</div>
+
+</div></div><div class="slider-controls"><button class="slider-btn" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button><div class="slider-dots" id="slider-dots"><div class="dot active" onclick="goToSlide(0)"></div><div class="dot" onclick="goToSlide(1)"></div><div class="dot" onclick="goToSlide(2)"></div></div><button class="slider-btn" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button></div></div></div></section>
+
+  <!-- Booking Form with Country Code Selector -->
+  <section id="booking">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-eyebrow ar-only">احجز</span>
+        <span class="section-eyebrow en-only">Book</span>
+        <h2 class="section-title ar-only">لنعمل <em>معاً</em></h2>
+        <h2 class="section-title en-only">Let's Work <em>Together</em></h2>
+      </div>
+      <div class="booking-wrapper">
+        <div class="booking-info reveal">
+          <h3 class="ar-only">ابدأ استشارتك</h3>
+          <h3 class="en-only">Begin your consultation</h3>
+          <p class="ar-only">سواء كنت مريضاً أو جراحاً أو مؤسسة — الدكتور عماد يرحب بالتعاون العالمي.</p>
+          <p class="en-only">Whether you're a patient, surgeon, or institution — Dr. Emad welcomes global collaboration.</p>
+          <div class="contact-methods">
+            <a href="tel:+201027870022" class="contact-method"><div class="method-icon"><i class="fas fa-phone-alt"></i></div><div><span class="method-label">Phone</span><span class="method-value">+2-010-2787-0022</span></div></a>
+            <a href="mailto:mohamedemadeldin@med.bsu.edu.eg" class="contact-method"><div class="method-icon"><i class="fas fa-envelope"></i></div><div><span class="method-label">Email</span><span class="method-value">mohamedemadeldin@med.bsu.edu.eg</span></div></a>
+            <a href="https://wa.me/201027870022" class="contact-method" target="_blank"><div class="method-icon"><i class="fab fa-whatsapp"></i></div><div><span class="method-label">WhatsApp</span><span class="method-value ar-only">تواصل مباشر</span><span class="method-value en-only">Chat Directly</span></div></a>
+          </div>
+        </div>
+        
+        <div class="booking-form reveal">
+          <div class="form-row">
+            <div class="form-group"><label class="ar-only">الاسم الأول</label><label class="en-only">First Name</label><input type="text" id="bookingFirstName"></div>
+            <div class="form-group"><label class="ar-only">اسم العائلة</label><label class="en-only">Last Name</label><input type="text" id="bookingLastName"></div>
+          </div>
+          <div class="form-group"><label class="ar-only">البريد الإلكتروني</label><label class="en-only">Email</label><input type="email" id="bookingEmail"></div>
+          
+          <!-- Phone Group: Country Code + Number -->
+          <div class="form-group">
+            <label class="ar-only">رقم الهاتف (واتساب)</label><label class="en-only">Phone (WhatsApp)</label>
+            <div class="phone-group">
+              <div class="country-picker" id="countryPicker">
+                <div class="country-picker-btn" id="countryPickerBtn" onclick="toggleCountryPicker(event)">
+                  <span class="flag" id="selectedFlag">🇪🇬</span>
+                  <span class="dial" id="selectedDial">+20</span>
+                  <span class="caret">&#9660;</span>
+                </div>
+                <div class="country-dropdown" id="countryDropdown">
+                  <div class="country-search-wrap">
+                    <input class="country-search" id="countrySearch" type="text" placeholder="Search country..." autocomplete="off" oninput="filterCountries(this.value)">
+                  </div>
+                  <div class="country-list" id="countryList"></div>
+                </div>
+              </div>
+              <input type="hidden" id="bookingCountryCode" value="20">
+              <input type="tel" id="bookingPhoneNumber" class="phone-number" placeholder="1012345678" dir="ltr">
+            </div>
+            <small style="color: rgba(250,250,250,0.4); font-size: 0.7rem; display: block; margin-top: 6px;">
+              أدخل رقم الهاتف بدون صفر البداية (مثال: 1012345678)
+            </small>
+          </div>
+
+          <div class="form-group"><label class="ar-only">نوع الاستفسار</label><label class="en-only">Inquiry Type</label>
+            <select id="bookingType">
+              <option value="Patient Consultation">استشارة مريض</option>
+              <option value="Medical Illustration">رسم طبي</option>
+              <option value="Stent Placement">تركيب دعامات</option>
+              <option value="Workshop">ورشة عمل</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="ar-only">تاريخ الحجز</label><label class="en-only">Booking Date</label><input type="date" id="bookingDate"></div>
+          <div class="form-group"><label class="ar-only">الرسالة</label><label class="en-only">Message</label><textarea id="bookingMessage" placeholder="..."></textarea></div>
+          <button class="form-submit" onclick="submitBooking()"><span class="ar-only">إرسال الطلب</span><span class="en-only">Send Request</span></button>
+          <div id="bookingSuccessMsg" class="booking-success"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="container"><div class="footer-top"><div><span class="footer-logo ar-only">د. محمد <span>عماد الدين</span></span><span class="footer-logo en-only">Dr. Mohamed <span>Emad</span></span><div class="footer-tagline ar-only">المسالك البولية · الترميم · تركيب الدعامات · الرسم الطبي</div><div class="footer-tagline en-only">Urology · Reconstruction · Stent Placement · Illustration</div></div><div class="footer-social"><a href="#" class="social-link"><i class="fab fa-twitter"></i></a><a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a><a href="#" class="social-link"><i class="fab fa-instagram"></i></a><a href="https://wa.me/201027870022" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div><div class="footer-bottom"><p class="footer-copy">© 2026 د. محمد عماد الدين — جراحة المسالك وتركيب الدعامات والرسم الطبي</p><div class="footer-gurs"><span class="ar-only">عضو رسمي</span><span class="en-only">Official Member</span><span class="gurs-badge">GURS</span></div></div></div></footer>
+</div>
+
+<div id="modal">
+  <button id="modal-close-btn" onclick="closeModal()">✕</button>
+  <div id="modal-content">
+    <div id="modal-img-wrap">
+      <img id="modal-img" src="" alt="" style="display:none;">
+      <div id="modal-img-placeholder"><i class="fas fa-image"></i><span>NO IMAGE SET</span></div>
+    </div>
+    <div id="modal-body">
+      <span id="modal-cat"></span>
+      <h2 id="modal-title"></h2>
+      <div id="modal-divider"></div>
+      <p id="modal-desc"></p>
+    </div>
+  </div>
+
+<!-- Firebase (shared backend so bookings from any visitor sync to the doctor's dashboard) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

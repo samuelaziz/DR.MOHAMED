@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Admin Dashboard | Dr. Mohamed Emad</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body dir="ltr">
+
+<!-- WhatsApp Confirmation Modal -->
+<div id="waModal">
+  <div class="wa-modal-box">
+    <div class="wa-modal-icon"><i class="fab fa-whatsapp"></i></div>
+    <div class="wa-modal-title">إرسال تأكيد الحجز</div>
+    <div class="wa-modal-sub" id="waModalSub">الرسالة التالية ستُرسل إلى العميل عبر واتساب</div>
+    <div class="wa-modal-msg" id="waModalMsg"></div>
+    <a id="waModalLink" href="#" target="_blank" class="wa-modal-btn" onclick="document.getElementById('waModal').classList.remove('open')">
+      <i class="fab fa-whatsapp"></i> فتح واتساب وإرسال الرسالة
+    </a>
+    <button class="wa-modal-close" onclick="document.getElementById('waModal').classList.remove('open')">إغلاق</button>
+  </div>
+</div>
+
+<!-- Dashboard Login Screen -->
+<div id="dashboardLoginModal" class="login-modal" style="display: flex;">
+  <div class="login-bg-particles"></div>
+  <div class="login-card">
+    <div class="login-glow"></div>
+    <div class="login-logo-wrap">
+      <div class="login-icon-ring">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M16 3L29 10V22L16 29L3 22V10L16 3Z" stroke="rgba(220,220,220,0.6)" stroke-width="1.2" fill="none"/>
+          <path d="M16 8L24 12.5V21.5L16 26L8 21.5V12.5L16 8Z" fill="rgba(220,220,220,0.08)" stroke="rgba(220,220,220,0.3)" stroke-width="0.8"/>
+          <circle cx="16" cy="16" r="3.5" fill="rgba(220,220,220,0.7)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="login-eyebrow">ADMIN ACCESS</div>
+    <h2 class="login-title">Dr. Emad<br><span>Control Panel</span></h2>
+    <p class="login-subtitle">Secure access to your booking dashboard</p>
+    <div class="login-field-wrap">
+      <div class="login-field">
+        <i class="fas fa-envelope login-field-icon"></i>
+        <input type="email" id="dashboardEmail" class="login-field-input" placeholder="Admin email" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('dashboardPassword').focus()">
+      </div>
+      <div class="login-field">
+        <i class="fas fa-lock login-field-icon"></i>
+        <input type="password" id="dashboardPassword" class="login-field-input" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginToDashboard()">
+        <button class="login-eye-btn" type="button" onclick="toggleLoginPwVis()">
+          <i class="fas fa-eye" id="loginEyeIcon"></i>
+        </button>
+      </div>
+    </div>
+    <p id="loginError" class="login-error-new"></p>
+    <button class="login-submit-btn" onclick="loginToDashboard()">
+      <span>Access Dashboard</span>
+      <i class="fas fa-arrow-right login-btn-arrow"></i>
+    </button>
+    <div class="login-footer-note">Protected &amp; Encrypted</div>
+  </div>
+</div>
+
+<!-- Dashboard Page -->
+<div id="dashboard-page" class="page" style="display: none;">
+  <div style="height: 40px;"></div>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1 class="dashboard-title">📊 Admin Dashboard</h1>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <a href="index.html" style="color:rgba(245,245,245,0.6); font-size:0.85rem; text-decoration:none;"><i class="fas fa-arrow-right"></i> Back to site</a>
+        <button class="dashboard-logout" onclick="logoutFromDashboard()">Logout</button>
+      </div>
+    </div>
+
+    <div class="dashboard-stats" id="dashboardStats">
+      <div class="stat-card"><h3>Total Bookings</h3><div class="number" id="totalBookings">0</div></div>
+      <div class="stat-card"><h3>Pending</h3><div class="number" id="pendingBookings">0</div></div>
+      <div class="stat-card"><h3>Confirmed</h3><div class="number" id="confirmedBookings">0</div></div>
+      <div class="stat-card"><h3>Completed</h3><div class="number" id="completedBookings">0</div></div>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <input type="text" id="searchBookings" class="filter-input" placeholder="🔍 Search by name or email..." onkeyup="filterBookings()">
+    </div>
+
+    <div class="bookings-table">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Type</th><th>Date</th><th>Time</th><th>Message</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="bookingsTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="assets/js/firebase-config.js"></script>
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>
