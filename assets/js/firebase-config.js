@@ -28,6 +28,13 @@
 //          allow create: if true;                 // anyone can submit a booking
 //          allow read, update, delete: if request.auth != null; // only logged-in admin
 //        }
+//        // Lightweight collection that only tracks WHICH slots are taken
+//        // (no patient names/emails/phones), so the public availability
+//        // checker can read it without exposing anyone's personal data.
+//        match /slots/{slotId} {
+//          allow read, create: if true;   // anyone can check/claim a slot
+//          allow delete: if request.auth != null; // only admin frees a slot (on cancel)
+//        }
 //      }
 //    }
 //
@@ -48,3 +55,4 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const bookingsCollection = db.collection('bookings');
+const slotsCollection = db.collection('slots');
