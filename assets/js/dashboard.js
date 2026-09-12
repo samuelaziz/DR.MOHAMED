@@ -79,20 +79,26 @@ function startBookingsListener() {
     function(err) {
       console.error('Failed to load bookings:', err);
       const tbody = document.getElementById('bookingsTableBody');
-      if (tbody) tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:30px;">⚠️ Could not load bookings. Check your Firebase setup / connection.</td></tr>';
+      if (tbody) tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:30px;">⚠️ Could not load bookings. Check your Firebase setup / connection.</td></tr>';
     }
   );
 }
 
 function deleteBooking(id) {
   if (confirm('هل أنت متأكد من حذف هذا الحجز؟')) {
-    bookingsCollection.doc(id).delete().catch(function(e) { console.error('Delete failed:', e); alert('Could not delete booking.'); });
+    Promise.all([
+      bookingsCollection.doc(id).delete(),
+      slotsCollection.doc(id).delete().catch(function(){}) // free the slot too (ignore if already gone)
+    ]).catch(function(e) { console.error('Delete failed:', e); alert('Could not delete booking.'); });
   }
 }
 
 function updateBookingStatus(id, newStatus) {
   const booking = bookings.find(function(b) { return b.id === id; });
   bookingsCollection.doc(id).update({ status: newStatus }).then(function() {
+    if (newStatus === 'cancelled') {
+      slotsCollection.doc(id).delete().catch(function(){}); // free the slot so someone else can book it
+    }
     if (newStatus === 'confirmed' && booking) {
       let rawPhone = booking.phone.replace(/[^0-9]/g, '');
       if (rawPhone.length >= 10) {
@@ -143,7 +149,7 @@ function renderDashboardTable() {
   document.getElementById('completedBookings').textContent = bookings.filter(function(b){return b.status==='completed';}).length;
 
   if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:30px;">No bookings found.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;padding:30px;">No bookings found.</td></tr>';
     return;
   }
 
