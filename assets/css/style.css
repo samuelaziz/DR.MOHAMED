@@ -1814,8 +1814,13 @@
   .form-group { margin-bottom: 26px; }
   .form-group label { font-family: var(--font-mono-premium); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 10px; }
   .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 15px 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--white); font-family: var(--font-body-premium); font-size: 0.85rem; outline: none; transition: all 0.3s; }
+  .form-group option { color: #111; background: #fff; }
   .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--silver); background: rgba(220,220,220,0.03); }
   .form-group textarea { resize: vertical; min-height: 110px; }
+  .slots-status-msg { font-family: var(--font-body-premium); font-size: 0.8rem; color: var(--muted); padding: 10px 0; min-height: 1.2em; }
+  .slots-status-msg.ok { color: #28a745; }
+  .slots-status-msg.warn { color: #e0a030; }
+  .slots-status-msg.error { color: #dc3545; }
   .form-submit { width: 100%; padding: 18px; background: linear-gradient(135deg, #5a5a5a, #2a2a2a); border: none; border-radius: 50px; color: var(--white); font-family: var(--font-mono-premium); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.45s; margin-top: 15px; }
   .form-submit:hover { transform: translateY(-3px); box-shadow: 0 20px 45px rgba(220,220,220,0.25); background: linear-gradient(135deg, #7a7a7a, #444); }
   .booking-success { background: rgba(40,167,69,0.2); border: 1px solid #28a745; color: #28a745; padding: 12px; border-radius: 10px; margin-top: 20px; text-align: center; display: none; }
