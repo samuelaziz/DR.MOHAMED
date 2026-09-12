@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="viewport" content="width=1280">
+<meta name="HandheldFriendly" content="false">
 <title>د. محمد عماد الدين | جراحة المسالك - تركيب الدعامات - الرسم الطبي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -593,13 +594,20 @@
 
           <div class="form-group"><label class="ar-only">نوع الاستفسار</label><label class="en-only">Inquiry Type</label>
             <select id="bookingType">
-              <option value="Patient Consultation">استشارة مريض</option>
-              <option value="Medical Illustration">رسم طبي</option>
-              <option value="Stent Placement">تركيب دعامات</option>
-              <option value="Workshop">ورشة عمل</option>
+              <option value="Patient Consultation" data-ar="استشارة مريض" data-en="Patient Consultation">استشارة مريض</option>
+              <option value="Medical Illustration" data-ar="رسم طبي" data-en="Medical Illustration">رسم طبي</option>
+              <option value="Stent Placement" data-ar="تركيب دعامات" data-en="Stent Placement">تركيب دعامات</option>
+              <option value="Workshop" data-ar="ورشة عمل" data-en="Workshop">ورشة عمل</option>
             </select>
           </div>
-          <div class="form-group"><label class="ar-only">تاريخ الحجز</label><label class="en-only">Booking Date</label><input type="date" id="bookingDate"></div>
+          <div class="form-group"><label class="ar-only">تاريخ الحجز</label><label class="en-only">Booking Date</label><input type="date" id="bookingDate" onchange="onBookingDateChange()"></div>
+          <div class="form-group">
+            <label class="ar-only">الوقت</label><label class="en-only">Time</label>
+            <select id="bookingTime" onchange="checkAvailability()">
+              <option value="">— اختر الوقت / Select Time —</option>
+            </select>
+            <div id="availabilityMsg" class="slots-status-msg"></div>
+          </div>
           <div class="form-group"><label class="ar-only">الرسالة</label><label class="en-only">Message</label><textarea id="bookingMessage" placeholder="..."></textarea></div>
           <button class="form-submit" onclick="submitBooking()"><span class="ar-only">إرسال الطلب</span><span class="en-only">Send Request</span></button>
           <div id="bookingSuccessMsg" class="booking-success"></div>
