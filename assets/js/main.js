@@ -32,88 +32,106 @@ function minutesToHHMM(mins) {
   return `${String(Math.floor(mins/60)).padStart(2,'0')}:${String(mins%60).padStart(2,'0')}`;
 }
 
-let slotsUnsubscribe = null;
-let selectedBookingTime = '';
-let lastSlotsDate = '';
-let lastTakenTimes = new Set();
-
-function onBookingDateChange() {
-  const dateVal = document.getElementById('bookingDate').value;
-  const wrap = document.getElementById('timeSlotsWrap');
-  const statusEl = document.getElementById('slotsStatusMsg');
-  const grid = document.getElementById('timeSlotsGrid');
+// (Re)build the time dropdown for a given date — past times (or all times,
+// if the clinic is closed that day) are shown but disabled, with a label
+// explaining why, instead of letting the person pick them and then fail.
+function populateTimeOptions(dateVal) {
+  const sel = document.getElementById('bookingTime');
+  if (!sel) return;
   const isArabic = document.body.dir === 'rtl';
-
-  selectedBookingTime = '';
-  document.getElementById('bookingTime').value = '';
-  grid.innerHTML = '';
-  if (slotsUnsubscribe) { slotsUnsubscribe(); slotsUnsubscribe = null; }
-
-  if (!dateVal) { wrap.style.display = 'none'; return; }
-  wrap.style.display = 'block';
-
-  const picked = new Date(dateVal + 'T00:00:00');
-  if (picked.getDay() === CLINIC_CLOSED_WEEKDAY) {
-    statusEl.className = 'slots-status-msg warn';
-    statusEl.textContent = isArabic ? '⚠️ العيادة إجازة يوم الجمعة — برجاء اختيار يوم آخر.' : '⚠️ The clinic is closed on Fridays — please choose another day.';
-    return;
-  }
-
-  statusEl.className = 'slots-status-msg';
-  statusEl.textContent = isArabic ? 'جاري تحميل المواعيد المتاحة...' : 'Loading available times...';
-
-  slotsUnsubscribe = bookingsCollection.where('date', '==', dateVal).onSnapshot(
-    function(snapshot) {
-      const takenTimes = new Set();
-      snapshot.forEach(function(doc) {
-        const d = doc.data();
-        if (d.status !== 'cancelled') takenTimes.add(d.time);
-      });
-      lastSlotsDate = dateVal;
-      lastTakenTimes = takenTimes;
-      renderTimeSlots(dateVal, takenTimes);
-    },
-    function(err) {
-      console.error('Could not load slots:', err);
-      statusEl.className = 'slots-status-msg error';
-      statusEl.textContent = isArabic ? '⚠️ تعذر تحميل المواعيد. حاول مرة أخرى.' : '⚠️ Could not load time slots. Please try again.';
-    }
-  );
-}
-
-function renderTimeSlots(dateVal, takenTimes) {
-  const statusEl = document.getElementById('slotsStatusMsg');
-  const grid = document.getElementById('timeSlotsGrid');
-  const isArabic = document.body.dir === 'rtl';
+  const prevValue = sel.value;
 
   const now = new Date();
   const isToday = dateVal === now.toISOString().split('T')[0];
   const nowMinutes = now.getHours() * 60 + now.getMinutes();
+  const picked = dateVal ? new Date(dateVal + 'T00:00:00') : null;
+  const isClosedDay = picked && picked.getDay() === CLINIC_CLOSED_WEEKDAY;
 
-  let html = '';
-  let availableCount = 0;
+  sel.innerHTML = '';
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '— اختر الوقت / Select Time —';
+  sel.appendChild(placeholder);
+
   for (let m = CLINIC_START_MIN; m < CLINIC_END_MIN; m += SLOT_LENGTH_MIN) {
     const hhmm = minutesToHHMM(m);
+    const opt = document.createElement('option');
+    opt.value = hhmm;
     const isPast = isToday && (m - nowMinutes) < MIN_ADVANCE_MIN;
-    const isTaken = takenTimes.has(hhmm) || isPast;
-    if (!isTaken) availableCount++;
-    html += `<div class="time-slot-btn${isTaken ? ' taken' : ''}${selectedBookingTime === hhmm ? ' selected' : ''}" ${isTaken ? '' : `onclick="selectTimeSlot('${hhmm}')"`}>${minutesToLabel(m)}</div>`;
+    const disabled = isClosedDay || isPast;
+    let label = minutesToLabel(m);
+    if (isClosedDay) label += isArabic ? ' (العيادة مغلقة)' : ' (clinic closed)';
+    else if (isPast) label += isArabic ? ' (انتهى الوقت)' : ' (past)';
+    opt.textContent = label;
+    opt.disabled = disabled;
+    sel.appendChild(opt);
   }
-  grid.innerHTML = html;
 
-  if (availableCount === 0) {
-    statusEl.className = 'slots-status-msg warn';
-    statusEl.textContent = isArabic ? '⚠️ لا توجد مواعيد متاحة في هذا اليوم، برجاء اختيار يوم آخر.' : '⚠️ No available times on this day — please pick another date.';
-  } else {
-    statusEl.className = 'slots-status-msg';
-    statusEl.textContent = isArabic ? `✅ ${availableCount} موعد متاح` : `✅ ${availableCount} slots available`;
-  }
+  // Keep the previous selection only if it's still a valid, enabled option
+  const stillValid = Array.from(sel.options).some(o => o.value === prevValue && !o.disabled);
+  sel.value = stillValid ? prevValue : '';
 }
 
-function selectTimeSlot(hhmm) {
-  selectedBookingTime = hhmm;
-  document.getElementById('bookingTime').value = hhmm;
-  renderTimeSlots(lastSlotsDate, lastTakenTimes);
+function onBookingDateChange() {
+  populateTimeOptions(document.getElementById('bookingDate').value);
+  checkAvailability();
+}
+
+// Build today's options as soon as the page loads
+populateTimeOptions(new Date().toISOString().split('T')[0]);
+
+let availabilityCheckToken = 0;
+
+// Called whenever the date or time field changes — checks that ONE
+// specific date+time against Firestore and tells the person immediately.
+async function checkAvailability() {
+  const dateVal = document.getElementById('bookingDate').value;
+  const timeVal = document.getElementById('bookingTime').value;
+  const msgEl = document.getElementById('availabilityMsg');
+  const isArabic = document.body.dir === 'rtl';
+  const myToken = ++availabilityCheckToken; // avoid race between overlapping checks
+
+  if (!dateVal || !timeVal) { msgEl.className = 'slots-status-msg'; msgEl.textContent = ''; return; }
+
+  const picked = new Date(dateVal + 'T00:00:00');
+  if (picked.getDay() === CLINIC_CLOSED_WEEKDAY) {
+    msgEl.className = 'slots-status-msg warn';
+    msgEl.textContent = isArabic ? '⚠️ العيادة إجازة يوم الجمعة — برجاء اختيار يوم آخر.' : '⚠️ The clinic is closed on Fridays — please choose another day.';
+    return;
+  }
+
+  const now = new Date();
+  const isToday = dateVal === now.toISOString().split('T')[0];
+  if (isToday) {
+    const [hh, mm] = timeVal.split(':').map(Number);
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+    if ((hh * 60 + mm) - nowMinutes < MIN_ADVANCE_MIN) {
+      msgEl.className = 'slots-status-msg warn';
+      msgEl.textContent = isArabic ? '⚠️ هذا الوقت قريب جداً، برجاء اختيار وقت لاحق بساعة على الأقل.' : '⚠️ That time is too soon — please pick a time at least 1 hour from now.';
+      return;
+    }
+  }
+
+  msgEl.className = 'slots-status-msg';
+  msgEl.textContent = isArabic ? '⏳ جاري التحقق من توفر الميعاد...' : '⏳ Checking availability...';
+
+  try {
+    const doc = await slotsCollection.doc(`${dateVal}_${timeVal}`).get();
+    if (myToken !== availabilityCheckToken) return; // a newer check superseded this one
+    const isTaken = doc.exists;
+    if (isTaken) {
+      msgEl.className = 'slots-status-msg error';
+      msgEl.textContent = isArabic ? '❌ هذا الميعاد محجوز بالفعل، برجاء اختيار وقت آخر.' : '❌ This time is already booked — please choose another.';
+    } else {
+      msgEl.className = 'slots-status-msg ok';
+      msgEl.textContent = isArabic ? '✅ الميعاد متاح' : '✅ This time is available';
+    }
+  } catch (e) {
+    if (myToken !== availabilityCheckToken) return;
+    console.error('Availability check failed:', e);
+    msgEl.className = 'slots-status-msg error';
+    msgEl.textContent = isArabic ? '⚠️ تعذر التحقق من الميعاد. حاول مرة أخرى.' : '⚠️ Could not check availability. Please try again.';
+  }
 }
 
 // Helper function to get formatted phone number with country code
@@ -158,6 +176,16 @@ async function submitBooking() {
   if (!type) { showError('⚠️ الرجاء اختيار نوع الاستفسار.', '⚠️ Please select an inquiry type.'); return; }
   if (!date) { showError('⚠️ الرجاء تحديد تاريخ الحجز.', '⚠️ Please select a booking date.'); return; }
   if (!time) { showError('⚠️ الرجاء اختيار ميعاد من المواعيد المتاحة.', '⚠️ Please select an available time slot.'); return; }
+  const pickedDate = new Date(date + 'T00:00:00');
+  if (pickedDate.getDay() === CLINIC_CLOSED_WEEKDAY) { showError('⚠️ العيادة إجازة يوم الجمعة.', '⚠️ The clinic is closed on Fridays.'); return; }
+  const nowCheck = new Date();
+  if (date === nowCheck.toISOString().split('T')[0]) {
+    const [hhC, mmC] = time.split(':').map(Number);
+    if ((hhC * 60 + mmC) - (nowCheck.getHours() * 60 + nowCheck.getMinutes()) < MIN_ADVANCE_MIN) {
+      showError('⚠️ هذا الوقت قريب جداً، برجاء اختيار وقت آخر.', '⚠️ That time is too soon, please choose another.');
+      return;
+    }
+  }
 
   const displayPhone = `+${fullRawPhone}`;
 
@@ -173,20 +201,21 @@ async function submitBooking() {
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   };
 
-  // Deterministic doc ID (date_time) lets us atomically guarantee only one
-  // active booking can ever exist for a given slot, even if two people
-  // submit at the exact same moment.
+  // Deterministic doc ID (date_time) — the "slots" doc is the public source
+  // of truth for whether a time is taken (no personal data in it), while
+  // the matching "bookings" doc (same ID) holds the full patient details.
   const slotId = `${date}_${time}`;
   let savedOk = false;
   let slotTaken = false;
   try {
     await db.runTransaction(async (tx) => {
-      const ref = bookingsCollection.doc(slotId);
-      const existing = await tx.get(ref);
-      if (existing.exists && existing.data().status !== 'cancelled') {
+      const slotRef = slotsCollection.doc(slotId);
+      const slotSnap = await tx.get(slotRef);
+      if (slotSnap.exists) {
         throw new Error('SLOT_TAKEN');
       }
-      tx.set(ref, newBooking);
+      tx.set(slotRef, { date, time, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+      tx.set(bookingsCollection.doc(slotId), newBooking);
     });
     savedOk = true;
   } catch (e) {
@@ -225,9 +254,7 @@ async function submitBooking() {
     document.getElementById('bookingPhoneNumber').value = '';
     document.getElementById('bookingCountryCode').value = '20';
     document.getElementById('bookingTime').value = '';
-    document.getElementById('timeSlotsWrap').style.display = 'none';
-    selectedBookingTime = '';
-    if (slotsUnsubscribe) { slotsUnsubscribe(); slotsUnsubscribe = null; }
+    document.getElementById('availabilityMsg').textContent = '';
 
     successMsg.style.cssText = 'display:block;background:rgba(40,167,69,0.2);border:1px solid #28a745;color:#28a745;padding:14px;border-radius:10px;margin-top:20px;text-align:center';
     successMsg.innerHTML = isArabic
@@ -239,7 +266,7 @@ async function submitBooking() {
       '⚠️ للأسف تم حجز هذا الميعاد للتو من شخص آخر. برجاء اختيار ميعاد آخر.',
       '⚠️ Sorry, this time slot was just booked by someone else. Please pick another time.'
     );
-    onBookingDateChange(); // refresh the slot list so the taken slot shows as unavailable
+    checkAvailability(); // re-check so the message reflects the now-taken slot
   } else {
     showError(
       '⚠️ حدث خطأ أثناء إرسال الحجز. برجاء المحاولة مرة أخرى أو التواصل عبر واتساب.',
@@ -315,7 +342,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 function toggleMobileNav() { const l = document.querySelector('.nav-links'), c = document.querySelector('.nav-cta'); if (l.style.display === 'flex') { l.style.display = 'none'; if (c) c.style.display = ''; } else { l.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:80px;left:0;right:0;background:rgba(0,0,0,0.98);backdrop-filter:blur(24px);padding:40px 24px;gap:28px;z-index:999;border-bottom:1px solid rgba(200,200,200,0.1)'; l.querySelectorAll('a').forEach(a => a.style.cssText = 'color:rgba(245,245,245,0.8);font-size:0.9rem;'); if (c) c.style.display = 'none'; } }
 
 const langButtons = document.querySelectorAll('.lang-btn');
-function setLanguage(lang) { if (lang === 'en') { document.body.dir = "ltr"; document.body.style.textAlign = "left"; } else { document.body.dir = "rtl"; document.body.style.textAlign = "right"; } langButtons.forEach(btn => { if (btn.dataset.lang === lang) btn.classList.add('active'); else btn.classList.remove('active'); }); localStorage.setItem('preferred_lang', lang); }
+function setLanguage(lang) { if (lang === 'en') { document.body.dir = "ltr"; document.body.style.textAlign = "left"; } else { document.body.dir = "rtl"; document.body.style.textAlign = "right"; } langButtons.forEach(btn => { if (btn.dataset.lang === lang) btn.classList.add('active'); else btn.classList.remove('active'); }); localStorage.setItem('preferred_lang', lang); document.querySelectorAll('#bookingType option').forEach(opt => { opt.textContent = lang === 'en' ? opt.dataset.en : opt.dataset.ar; }); }
 langButtons.forEach(btn => { btn.addEventListener('click', () => setLanguage(btn.dataset.lang)); });
 setLanguage('en');
 
